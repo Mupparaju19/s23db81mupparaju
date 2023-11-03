@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1= title
+  - let results = [{wolf_name:"brownie",wolf_age :10,wolf_price:200},{wolf_name:"whitie",wolf_age :14,wolf_price:250},{wolf_name:"blackie",wolf_age :13,wolf_price:350}]
+   div.container-fluid
+    div.row
+     each wolf,index in results
+      div.col-sm-2(onClick=`buy(${index})`) #{wolf.wolf_name}
+      div.col-sm-2(onClick=`buy(${index})`) #{wolf.wolf_age}
+      div.col-sm-2(onClick=`buy(${index})`) #{wolf.wolf_price}
+      br
+      hr
+
+  script.
+        function buy(index)
+        {
+            alert(`You purchased Item ${index+1}`)
+        }
