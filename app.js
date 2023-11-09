@@ -10,6 +10,7 @@ var wolfRouter = require('./routes/wolf');
 var boardRouter = require('./routes/board')
 var chooseRouter = require('./routes/choose')
 var wolf = require("./models/wolf");
+var resource = require('./routes/resource');
 
 
 
@@ -47,6 +48,7 @@ app.use('/users', usersRouter);
 app.use('/wolf',wolfRouter);
 app.use('/board',boardRouter);
 app.use('/choose',chooseRouter);
+app.use('/resource',resource)
 
 
 // catch 404 and forward to error handler
