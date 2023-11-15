@@ -1,0 +1,49 @@
+extends layout
+
+block content
+  h1= title
+
+  if(toShow == null)
+    h2 No instance to delete
+  else
+    - let wolfid = toShow._id
+    - let wolf_name = toShow.wolf_name
+    - let wolf_age = toShow.wolf_age
+    - let wolf_price = toShow.wolf_price
+    - let actionid = "/resource/wolf/" + wolfid
+    script let actionid = "#{actionid}"
+    div
+     div.row 
+      div(class='wolfAttr mr-3') wolf ID is:
+      div #{wolfid}
+     div.row
+      div(class='wolfAttr mr-3') wolf Name is:
+      div #{wolf_color}
+     div.row
+      div(class='wolfAttr mr-3') wolf age is:
+      div #{wolf_age}
+     div.row
+      div(class='wolfAttr mr-3') wolf Price is:
+      div #{wolf_price}
+    button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+    button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+  script.
+   function cancel() {
+    window.location.href='/wolfs'
+    }
+  script.
+    function deleteOnid() {
+     console.log("starting delete")
+     fetch(actionid, {
+      method: 'DELETE'
+     }).then((resp) => {
+        return resp.json();
+     }).then((body) => {
+        alert("Delete succeded")
+        window.location.href='/wolf'
+     }).catch((error) => {
+        alert("Delete failed " + error )
+     });
+    }
+
+    

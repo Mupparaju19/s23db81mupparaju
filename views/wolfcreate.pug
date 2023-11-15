@@ -1,0 +1,28 @@
+extends layout
+block content
+ h1= title
+ form(id='wolfForm', action="/resource/wolf", method="POST")
+  div.form-group
+   label.wolfAttr(for='wolf_name') wolf name
+   input#wolf_name(type='text', name='wolf_name')
+  div.form-group
+   label.wolfAttr(for='wolf_age') wolf age
+   input#wolf_age(type='number', name='wolf_age')
+  div.form-group
+   label.wolfAttr(for='wolf_price') wolf Cost 
+   input#wolf_price(type='number', name='wolf_price')
+  input(type="submit")
+ script.
+  document.forms['wolfForm'].addEventListener('submit', (event) => {
+    event.preventDefault();
+    fetch(event.target.action, {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(event.target)) 
+    }).then((resp) => {
+        return resp.text();
+    }).then((body) => {
+        alert("Save succeded")
+    }).catch((error) => {
+        alert("Save failed " + error )
+    });
+   });

@@ -11,6 +11,7 @@ router.get('/', api_controller.api);
 router.post('/wolf', wolf_controller.wolf_create_post);
 // DELETE request to delete wolf.
 router.delete('/wolf/:id', wolf_controller.wolf_delete);
+
 // PUT request to update wolf.
 router.put('/wolf/:id', wolf_controller.wolf_update_put);
 // GET request for one wolf.

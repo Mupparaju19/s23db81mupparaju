@@ -1,0 +1,57 @@
+extends layout
+
+block content
+  h1= title
+
+  if(toShow == null)
+    h2 No instance to update
+  else
+    - let wolfid = toShow._id
+    - let wolf_name = toShow.wolf_name
+    - let wolf_age = toShow.wolf_age
+    - let wolf_price = toShow.wolf_price
+    - let actionid = "/resource/wolf/" + wolfid
+    script let actionid = "#{actionid}"
+    div.row(class='mb-2')
+    div.mr-1 ID is 
+      span(style="color:red")  #{wolfid}
+    form(id='wolfForm', action= actionid, method="PUT")
+      div.form-group
+      div(class="row g-3 align-items-center")
+        div(class="col-10")
+          label.wolfAttr(for='wolf_name',class="col-form-label") wolf name
+        div(class="col-auto")
+          input#wolf_name(type='text', name='wolf_name',class="form-control", value=wolf_name)
+      div.form-group
+      div(class="row g-3 align-items-center")
+        div(class="col-10")
+          label.wolfAttr(for='wolf_age',class="col-form-label") wolf age 
+        div(class="col-auto")
+          input#wolf_age(type='text', name='wolf_age',class="form-control", value=wolf_age)
+      div.form-group
+      div(class="row g-3 align-items-center")
+        div(class="col-10")
+          label.wolfAttr(for='wolf_price',class="col-form-label") wolf price
+        div(class="col-auto")
+          input#wolf_price(type='number', name='wolf_price',class="form-control", value=wolf_price)
+      input(class="btn btn-danger m-2" type="submit")
+        //- button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+      button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+    
+    script.
+      document.forms['wolfForm'].addEventListener('submit', (event) => {
+       event.preventDefault();
+      // TODO do something here to show user that form is being submitted
+       fetch(event.target.action, {
+        method: 'PUT',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+        }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+        }).then((body) => {
+        alert("Update succeded")
+        // TODO handle body
+        }).catch((error) => {
+        // TODO handle error
+        alert("Update failed " + error )
+       });
+      });
