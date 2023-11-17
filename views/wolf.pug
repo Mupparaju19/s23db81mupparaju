@@ -2,18 +2,29 @@ extends layout
 
 block content
   h1= title
-  - let item = results
-   div.container-fluid
-    div.row
-     each wolf,index in item
-      div.col-sm-2(onClick=`buy(${index})`) #{wolf.wolf_name}
-      div.col-sm-2(onClick=`buy(${index})`) #{wolf.wolf_age}
-      div.col-sm-2(onClick=`buy(${index})`) #{wolf.wolf_price}
-      br
-      hr
+  - let items = results;
+  div(class="container-fluid")
+   div(class="row m-1")
+    each item in items
+     - let destination = `dispatch(\"/wolf/update?id=${item._id}\")`
+     div(class="row-sm-2", class="m-1") Item #{item.wolf_name}(#{item.wolf_age}) is #{item.wolf_price}
+      button.btn( class="btn-primary ml-1", onclick= destination) Update
+    div.container-fluid 
+     div.row
+      each wolf,index in items 
+       div.col-sm-2(onclick=`buy(${index})`) #{wolf.wolf_name}
+       div.col-sm-2(onclick=`buy(${index})`) #{wolf.wolf_age}
+       div.col-sm-2(onclick=`buy(${index})`) #{wolf.wolf_price}
+       br
+       hr
 
+  script. 
+       function buy(index)
+       {
+        alert(`you purchased Item: ${index+1}`)
+       }
   script.
-        function buy(index)
-        {
-            alert(`You purchased Item ${index+1}`)
-        }
+       function dispatch(path)
+       {
+         window.location.href=path
+       }
