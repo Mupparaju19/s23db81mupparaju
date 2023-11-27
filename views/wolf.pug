@@ -3,12 +3,18 @@ extends layout
 block content
   h1= title
   - let items = results;
+  -let createins = `createInstance(\"/wolf/create\")`
+  button.btn( class="btn-primary ml-1", onclick= createins) create
   div(class="container-fluid")
    div(class="row m-1")
     each item in items
      - let destination = `dispatch(\"/wolf/update?id=${item._id}\")`
+     - let deleteins = `deleteInstance(\"/wolf/delete?id=${item._id}\")`
+     - let detailins = `detailInstance(\"/wolf/detail?id=${item._id}\")`
      div(class="row-sm-2", class="m-1") Item #{item.wolf_name}(#{item.wolf_age}) is #{item.wolf_price}
       button.btn( class="btn-primary ml-1", onclick= destination) Update
+      button.btn( class="btn-primary ml-1", onclick= detailins) detail
+      button.btn( class="btn-primary ml-1", onclick= deleteins) delete
     div.container-fluid 
      div.row
       each wolf,index in items 
@@ -25,6 +31,21 @@ block content
        }
   script.
        function dispatch(path)
+       {
+         window.location.href=path
+       }
+  script.
+       function createInstance(path)
+       {
+         window.location.href=path
+       }
+  script.
+       function deleteInstance(path)
+       {
+         window.location.href=path
+       }
+  script.
+       function detailInstance(path)
        {
          window.location.href=path
        }
